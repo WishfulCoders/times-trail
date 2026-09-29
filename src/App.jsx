@@ -133,7 +133,7 @@ export default function App() {
           <PlayerForm onSubmit={addPlayer} onCancel={() => setView('players')} />
         </main>
       )}
-      {view === 'home' && <Home profile={profile} onStart={startTrail} onShop={() => setView('shop')} />}
+      {view === 'home' && <Home profile={profile} onStart={startTrail} onShop={() => setView('shop')} onPrint={() => setView('print')} />}
       {view === 'done' && done && (
         <Done profile={profile} done={done} onAgain={() => startTrail(againArgs(done.trail))} onHome={() => setView('home')} />
       )}
@@ -222,7 +222,7 @@ function Players({ store, onChoose, onAdd }) {
   )
 }
 
-function Home({ profile, onStart, onShop }) {
+function Home({ profile, onStart, onShop, onPrint }) {
   const companion = companionOf(profile.companion)
   const pool = useMemo(() => poolFor(profile), [profile.level])
   const review = reviewFacts(profile.facts, pool)
@@ -257,6 +257,29 @@ function Home({ profile, onStart, onShop }) {
 
       <TrailPath profile={profile} onStart={onStart} />
 
+      <div className="home-links">
+        <button type="button" className="card shop-card" onClick={onShop}>
+          <span className="shop-emoji" aria-hidden="true">{nextCompanion ? nextCompanion.emoji : '🏆'}</span>
+          <span>
+            <strong>Companion shop</strong>
+            <small>
+              {nextCompanion
+                ? `${profile.stars} ⭐ saved · ${nextCompanion.name} costs ${nextCompanion.price}`
+                : 'You have every companion!'}
+            </small>
+          </span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <button type="button" className="card shop-card" onClick={onPrint}>
+          <span className="shop-emoji" aria-hidden="true">🖨️</span>
+          <span>
+            <strong>Print a practice sheet</strong>
+            <small>A timed mad minute on paper, from your tables</small>
+          </span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
       <section className="card chart-card" aria-labelledby="chart-heading">
         <div className="card-head">
           <div>
@@ -269,18 +292,6 @@ function Home({ profile, onStart, onShop }) {
         <ChartLegend />
       </section>
 
-      <button type="button" className="card shop-card" onClick={onShop}>
-        <span className="shop-emoji" aria-hidden="true">{nextCompanion ? nextCompanion.emoji : '🏆'}</span>
-        <span>
-          <strong>Companion shop</strong>
-          <small>
-            {nextCompanion
-              ? `${profile.stars} ⭐ saved · ${nextCompanion.name} costs ${nextCompanion.price}`
-              : 'You have every companion!'}
-          </small>
-        </span>
-        <span aria-hidden="true">→</span>
-      </button>
     </main>
   )
 }

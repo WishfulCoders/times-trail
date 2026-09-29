@@ -175,6 +175,7 @@ footer button { min-height: 44px; border: 0; background: none; padding: 0 8px; t
 .chart-count { text-align: right; flex: none; }
 .chart-count b { display: block; font: 800 30px/1 'Manrope'; color: var(--sun-deep); }
 .chart-count small { color: var(--ink-soft); font-size: 12px; }
+.home-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .shop-card { display: flex; align-items: center; gap: 16px; text-align: left; cursor: pointer; }
 .shop-card:hover { border-color: #9aa5da; }
 .shop-emoji { font-size: 40px; }
@@ -416,7 +417,7 @@ footer button { min-height: 44px; border: 0; background: none; padding: 0 8px; t
   .stones { gap: 4px; }
   .stone span { min-width: 48px; min-height: 48px; font-size: 18px; padding: 0 4px; }
   .stone small { font-size: 15px; }
-  .settings-grid, .print-options { grid-template-columns: 1fr; }
+  .settings-grid, .print-options, .home-links { grid-template-columns: 1fr; }
   .sheet { padding: 20px 14px; }
   .sheet:has(.n50), .sheet:has(.n100) { width: 640px; max-width: none; }
   .table-toggles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
