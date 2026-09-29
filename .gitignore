@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars*
+.DS_Store
+
+# Local editor/agent config, not shared
+.claude/
+
+# Production Worker config: real account + KV namespace IDs and live domains.
+wrangler.prod.jsonc
