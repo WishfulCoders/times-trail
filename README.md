@@ -42,6 +42,8 @@ leaves the device is a backup a grown-up explicitly asks for.
   answered right twice.
 - **The star chart fills itself in.** A product only appears on the 12 × 12 grid once the
   child has recalled it.
+- **Printable mad minute sheets**: 20–100 timed problems from a child's unlocked tables,
+  with extra goes at their tricky facts and an answer key on its own page.
 - Up to six players per device, stars that buy cosmetic companions, an early-learner mode
   (pictures, read-aloud, three choices), and optional code-based backup.
 

@@ -31,7 +31,7 @@ function speedLabel(ms) {
   return ms == null ? 'Off — accuracy only' : `${ms / 1000} seconds`
 }
 
-export function Grownups({ store, setStore, onBack }) {
+export function Grownups({ store, setStore, onPrint, onBack }) {
   const [adding, setAdding] = useState(false)
 
   const update = (id, fn) => setStore((s) => ({ ...s, profiles: s.profiles.map((p) => (p.id === id ? fn(p) : p)) }))
@@ -69,6 +69,15 @@ export function Grownups({ store, setStore, onBack }) {
           )
         )}
       </section>
+
+      <button type="button" className="card shop-card" onClick={onPrint}>
+        <span className="shop-emoji" aria-hidden="true">🖨️</span>
+        <span>
+          <strong>Printable mad minute sheets</strong>
+          <small>Timed practice pages with an answer key, built from each child's tables and tricky facts.</small>
+        </span>
+        <span aria-hidden="true">→</span>
+      </button>
 
       <Backup store={store} setStore={setStore} />
       <Privacy />

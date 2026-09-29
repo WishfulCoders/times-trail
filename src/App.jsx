@@ -5,6 +5,7 @@ import { Game } from './Game.jsx'
 import { Grownups } from './Grownups.jsx'
 import { MAX_LEVEL, UNLOCK_PATH, settleUnlocks, tableLabel, unlockProgress } from './levels.js'
 import { PlayerForm } from './PlayerForm.jsx'
+import { PrintSheets } from './Print.jsx'
 import { MAX_PLAYERS, loadStore, newProfile, poolFor, saveStore } from './profiles.js'
 import { COMPANIONS, buy, canBuy, companionOf } from './shop.js'
 import { ChartLegend, MASTERY_COPY, StarChart, masteryCounts } from './StarChart.jsx'
@@ -19,6 +20,17 @@ export default function App() {
   const [done, setDone] = useState(null)
 
   useEffect(() => saveStore(store), [store])
+
+  // A new view starts at the top, with focus on its content, as a page load
+  // would. Otherwise a view opened from the footer appears scrolled away.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const main = document.getElementById('main')
+    if (main) {
+      main.setAttribute('tabindex', '-1')
+      main.focus({ preventScroll: true })
+    }
+  }, [view])
 
   const profile = store.profiles.find((p) => p.id === store.activeId) || null
 
@@ -111,7 +123,7 @@ export default function App() {
   }
 
   return (
-    <Shell header={header} onGrownups={() => setView('grownups')}>
+    <Shell header={header} onGrownups={() => setView('grownups')} onPrint={() => setView('print')}>
       {view === 'players' && (
         <Players store={store} onChoose={choosePlayer} onAdd={() => setView('add')} />
       )}
@@ -134,8 +146,9 @@ export default function App() {
         />
       )}
       {view === 'grownups' && (
-        <Grownups store={store} setStore={setStore} onBack={() => setView(store.profiles.length ? 'home' : 'welcome')} />
+        <Grownups store={store} setStore={setStore} onPrint={() => setView('print')} onBack={() => setView(store.profiles.length ? 'home' : 'welcome')} />
       )}
+      {view === 'print' && <PrintSheets store={store} onBack={() => setView('home')} />}
     </Shell>
   )
 }
@@ -146,7 +159,7 @@ function againArgs(trail) {
   return match ? { table: Number(match[1]) } : {}
 }
 
-function Shell({ header, children, onGrownups, bare = false }) {
+function Shell({ header, children, onGrownups, onPrint, bare = false }) {
   return (
     <div className="app">
       <a className="skip-link" href="#main">Skip to content</a>
@@ -155,6 +168,7 @@ function Shell({ header, children, onGrownups, bare = false }) {
       {!bare && (
         <footer>
           {onGrownups && <button type="button" onClick={onGrownups}>Grown-ups</button>}
+          {onPrint && <button type="button" onClick={onPrint}>Print sheets</button>}
           <a className="studio-line" href={STUDIO_URL} target="_blank" rel="noreferrer">A <b>Wishful Coders</b> app</a>
         </footer>
       )}

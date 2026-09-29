@@ -66,6 +66,22 @@ npm run build
 - **Stars and companions** (`src/shop.js`) are cosmetic only. Nothing is ever gated
   behind them.
 
+## Printing: mad minute sheets
+
+`src/print.js` holds the logic and `src/Print.jsx` the view. It opens from the footer
+("Print sheets") and from Grown-ups. `madMinute` deals problems from a deck of t × 1 to
+t × 12 for each chosen table, so every table gets an equal share. It never repeats a fact
+back to back and puts the table's number on top or bottom at random. Optional focus facts
+(the player's `trickiest`) take up to a quarter of the sheet, capped at three appearances
+each. Sheets are seeded (`seededRandom`), so the preview is exactly what prints, and
+"New problems" just picks a new seed. `madMinuteSet` gives up to `MAX_PAGES` different
+sheets, each followed by its answer key on its own page.
+
+Sizes are 20, 30, 50 or 100 problems. Each size has its own font and row spacing in
+`styles.css` so it fills a Letter/A4 page. `@media print` strips the app chrome and the
+`.print-controls`. On phones, 50- and 100-problem previews scroll inside `.sheets`
+rather than squashing.
+
 ## Players, storage, backup
 
 Up to six players (`src/profiles.js`), stored under `times-trail:v1`. `normalizeStore`
@@ -93,7 +109,7 @@ Don't put them in `wrangler.jsonc`.
 
 ## Ideas not built yet
 
-- Printable "mad minute" sheets and blank grids (spell-trail's `print.js` is the pattern).
+- Printable blank 12 × 12 grids to fill in.
 - Quick-draw true/false, "which facts make 24?", a match-pairs memory game.
 - A stepping-stones mode (7 × 8 = 7 × 7 + __).
 - Weighting review towards the mode a fact keeps failing in.
